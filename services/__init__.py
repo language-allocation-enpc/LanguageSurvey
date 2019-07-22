@@ -1,4 +1,6 @@
-from flask import Flask
+from flask import Flask, render_template
+import sys
+import logging
 from flask import jsonify
 from flask import request, session, url_for, redirect, make_response
 from flask_pymongo import PyMongo
@@ -62,7 +64,8 @@ blacklist = set()
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 mail = Mail(app)
-
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
 
 def generate_token():
     return ''.join(random.choices(string.ascii_uppercase +string.ascii_lowercase+ string.digits, k=35))
