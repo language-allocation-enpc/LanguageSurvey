@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import url from "./url";
+import url from "../url";
 import "./Admin.css"
-import error_panel from './images/error_panel.png';
+import error_panel from '../images/error_panel.png';
 
 
 

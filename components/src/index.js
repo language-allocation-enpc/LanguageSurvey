@@ -2,23 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import './index.css';
-import * as serviceWorker from './serviceWorker';
-import App from './App'
-import Login from './LoginPage'
-import Admin from './Admin'
-import AdminLogin from './AdminLogin'
-import CourseEditing from './CourseEditing'
-import GetAffect from './getAffect'
-import ManageStudents from './studentManagement'
-import ChangeStudents from './changeStudent'
-import ResultPage from './resultPage.js'
+import Login from './survey/LoginPage'
+import Admin from './admin/Admin'
+import AdminLogin from './admin/AdminLogin'
+import CourseEditing from './admin/components/CourseEditing'
+import GetAffect from './admin/components/getAffect'
+import ManageStudents from './admin/components/studentManagement'
+import ChangeStudents from './admin/components/changeStudent'
+import ResultPage from './admin/components/resultPage.js'
 import Page404 from './404.js'
-import Questionnaire from "./Questionnaire";
+import Questionnaire from "./survey/Questionnaire";
 
 const routing = (
   <Router>
     <Switch>
-      <Route exact path="/form" component={Questionnaire} />
+      <Route exact path="/survey" component={Questionnaire} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/admin" component={Admin} />
       <Route exact path="/admin/login" component={AdminLogin} />
@@ -31,8 +29,3 @@ const routing = (
   </Router>
 )
 ReactDOM.render(routing, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();

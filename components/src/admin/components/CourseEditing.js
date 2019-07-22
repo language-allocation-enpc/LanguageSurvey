@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import './App.css';
 import axios from 'axios';
-import url from "./url";
+import url from "../../url";
 import "./CourseEditing.css"
-import plus_button from "./images/plus_button.png"
-import suppr_button from "./images/suppr_button.png"
-import edit_button from "./images/edit_button.png"
-import background_wall from "./images/background_image.jpg"
+import plus_button from "../../images/plus_button.png"
+import suppr_button from "../../images/suppr_button.png"
+import edit_button from "../../images/edit_button.png"
+import background_wall from "../../images/background_image.jpg"
 
 
 

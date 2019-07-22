@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom'
 import axios from 'axios';
-import url from "./url";
+import url from "../../url";
 import { CSVDownload } from "react-csv";
 
 axios.defaults.withCredentials = true

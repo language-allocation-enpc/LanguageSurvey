@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import dummyData from "./DummyData";
-import url from "./url";
+import url from "../url";
 import vowGenerator from "./VowGenerator";
-import error_panel from './images/error_panel.png';
+import error_panel from '../images/error_panel.png';
 import './Questionnaire.css';
 
 class Questionnaire extends Component {
     constructor(props) {
         super(props);
-        this.state = { data: {courses: dummyData, schedules: [], token: null, user_name: null, user_vows: null}, is_loaded: false, step_list: ["initial_questions"], step_index: 0, answers_are_sent: false, answers: { year: '', TOEIC: '', justification_no_english: '', justification_no_english_text: '', number_english_courses: 1, number_other_courses: 0, english_courses_ranking:[], other_courses_ranking:[]}};
+        this.state = { data: {courses: [], schedules: [], token: null, user_name: null, user_vows: null}, is_loaded: false, step_list: ["initial_questions"], step_index: 0, answers_are_sent: false, answers: { year: '', TOEIC: '', justification_no_english: '', justification_no_english_text: '', number_english_courses: 1, number_other_courses: 0, english_courses_ranking:[], other_courses_ranking:[]}};
 
       }
 

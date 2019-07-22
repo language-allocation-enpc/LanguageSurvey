@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import axios from "axios";
-import url from './url';
+import url from '../../url';
 import CSVReader from 'react-csv-reader';
 // Import React Table
 import ReactTable from "react-table";

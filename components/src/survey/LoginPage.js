@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './LoginPage.css';
 import axios from 'axios';
-import url from "./url";
+import url from "../url";
 import queryString from 'query-string';
 import {Cookies} from 'react-cookie';
 import { Redirect } from 'react-router-dom'
