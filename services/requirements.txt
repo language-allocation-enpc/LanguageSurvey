@@ -14,3 +14,4 @@ pymongo
 pytz
 six
 pymprog
+numpy
