@@ -30,7 +30,7 @@ app = Flask(__name__)
 if PROD:
     app.config['MONGO_DBNAME'] = 'heroku_5g7sdr3g'
     app.config['MONGO_URI'] = 'mongodb://' + MONGODB_USER + ':' + MONGODB_PW + '@ds345937.mlab.com:45937/' + MONGODB_DB_NAME
-    site_url = 'https://language-survey-app.herokuapp.com/'
+    site_url = 'https://language-survey-app.herokuapp.com'
 else:
     app.config['MONGO_DBNAME'] = 'language_allocation_database'
     app.config['MONGO_URI'] = 'mongodb://localhost:27017/language_allocation_database'
