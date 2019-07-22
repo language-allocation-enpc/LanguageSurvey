@@ -1,0 +1,10 @@
+Flask
+Flask_pymongo
+Flask_login
+json
+pymongo
+Flask_cors
+Flask_bcrypt
+Flask_jwt_extended
+Flask_mail
+uwsgi

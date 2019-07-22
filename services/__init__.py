@@ -22,15 +22,8 @@ from flask_mail import Mail, Message
 
 
 
+
 app = Flask(__name__)
-cors = CORS(app, resources={r"/*":{"origins": site_url}})
-
-
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'
-app.testing=False
-
 
 if PROD:
     app.config['MONGO_DBNAME'] = 'heroku_5g7sdr3g'
@@ -40,6 +33,17 @@ else:
     app.config['MONGO_DBNAME'] = 'language_allocation_database'
     app.config['MONGO_URI'] = 'mongodb://localhost:27017/language_allocation_database'
     site_url = 'http://localhost:3000/'
+
+
+cors = CORS(app, resources={r"/*":{"origins": site_url}})
+
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+app.testing=False
+
+
 
 
 app.config['SECRET_KEY'] = '6Cb4CTv46t39GYncwkmTEbcjs9415fskfnR'
