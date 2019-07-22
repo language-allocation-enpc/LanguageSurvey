@@ -1,0 +1,5 @@
+PROD = True
+
+MONGODB_USER = "DLCtest"
+MONGODB_PW = "rqHkxDmC5WtBXA52FfL4"
+MONGODB_DB_NAME = "heroku_5g7sdr3g"

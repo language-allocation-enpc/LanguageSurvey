@@ -2,9 +2,12 @@ import json
 from pymongo import MongoClient
 from data_structs import *
 import random, string
-client = MongoClient()
+from config import MONGODB_PW, MONGODB_USER, MONGODB_DB_NAME
 
-app_db = client.language_allocation_database
+
+client = MongoClient('mongodb://' + MONGODB_USER + ':' + MONGODB_PW + '@ds345937.mlab.com:45937/' + MONGODB_DB_NAME)
+
+app_db = client[MONGODB_DB_NAME]
 app_db.courses.delete_many({})
 app_db.creneaux.delete_many({})
 app_db.users.delete_many({})

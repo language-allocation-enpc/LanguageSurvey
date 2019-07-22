@@ -3,6 +3,7 @@ from flask import jsonify
 from flask import request, session, url_for, redirect, make_response
 from flask_pymongo import PyMongo
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required, UserMixin
+from config import MONGODB_USER, MONGODB_PW, MONGODB_DB_NAME, PROD
 from bson.objectid import ObjectId
 import bson.json_util
 import json
@@ -18,7 +19,7 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 from flask_mail import Mail, Message
-site_url = 'http://localhost:3000/'
+
 
 
 app = Flask(__name__)
@@ -29,8 +30,18 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 app.testing=False
-app.config['MONGO_DBNAME'] = 'language_allocation_database'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/language_allocation_database'
+
+
+if PROD:
+    app.config['MONGO_DBNAME'] = 'heroku_5g7sdr3g'
+    app.config['MONGO_URI'] = 'mongodb://' + MONGODB_USER + ':' + MONGODB_PW + '@ds345937.mlab.com:45937/' + MONGODB_DB_NAME
+    site_url = 'https://language-survey-app.herokuapp.com/'
+else:
+    app.config['MONGO_DBNAME'] = 'language_allocation_database'
+    app.config['MONGO_URI'] = 'mongodb://localhost:27017/language_allocation_database'
+    site_url = 'http://localhost:3000/'
+
+
 app.config['SECRET_KEY'] = '6Cb4CTv46t39GYncwkmTEbcjs9415fskfnR'
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
@@ -47,6 +58,7 @@ blacklist = set()
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 mail = Mail(app)
+
 
 def generate_token():
     return ''.join(random.choices(string.ascii_uppercase +string.ascii_lowercase+ string.digits, k=35))
