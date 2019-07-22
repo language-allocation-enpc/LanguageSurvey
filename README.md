@@ -59,4 +59,28 @@ Dans components :
 1) Mettre dans components/url.js la variable prod à true
 2) git push
 3) Se connecter a heroku :
+```
 npm install -g heroku
+```
+```
+heroku git:remote -a language-survey-app
+```
+```
+git subtree push --prefix components heroku master
+```
+
+# Back
+
+Dans components :
+1) Copier le contenu de config-prod.py dans config.py
+2) git push
+3) Se connecter a heroku :
+```
+npm install -g heroku
+```
+```
+heroku git:remote -a language-survey-api
+```
+```
+git subtree push --prefix services heroku master
+```
