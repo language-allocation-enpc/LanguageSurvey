@@ -1,8 +1,8 @@
 # LanguageSurvey
-##Le site de la DLC dédié au questionnaire langues
+## Le site de la DLC dédié au questionnaire langues
 
-#Compiler en local
-##Lancer le back
+# Compiler en local
+## Lancer le back
 
 1) Installer MongoDB
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
@@ -30,7 +30,7 @@ cd services
 python __init__.py
 
 
-##Lancer le front
+## Lancer le front
 
 npm install
 npm start
