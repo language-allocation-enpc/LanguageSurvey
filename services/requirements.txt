@@ -1,9 +1,15 @@
 Flask
 Flask_pymongo
 Flask_login
-pymongo
 Flask_cors
 Flask_bcrypt
 Flask_jwt_extended
 Flask_mail
-uwsgi
+MarkupSafe
+Werkzeug
+aniso8601
+gunicorn
+itsdangerous
+pymongo
+pytz
+six

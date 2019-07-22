@@ -50,3 +50,13 @@ npm install
 ```
 npm start
 ```
+
+
+# Déployer en production
+# Front
+
+Dans components :
+1) Mettre dans components/url.js la variable prod à true
+2) git push
+3) Se connecter a heroku :
+npm install -g heroku
