@@ -1,3 +1,3 @@
-let url="http://localhost:5000/";
+let url= "https://language-survey-api.herokuapp.com/";
 
 export default url;
