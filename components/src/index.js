@@ -16,7 +16,7 @@ import Questionnaire from "./survey/Questionnaire";
 const routing = (
   <Router>
     <Switch>
-      <Route exact path="/survey" component={Questionnaire} />
+      <Route exact path="/form" component={Questionnaire} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/admin" component={Admin} />
       <Route exact path="/admin/login" component={AdminLogin} />
