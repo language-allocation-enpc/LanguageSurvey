@@ -53,7 +53,7 @@ npm start
 
 
 # Déployer en production
-# Front
+## Front
 
 Dans components :
 1) Mettre dans components/url.js la variable prod à true
@@ -69,7 +69,7 @@ heroku git:remote -a language-survey-app
 git subtree push --prefix components heroku master
 ```
 
-# Back
+## Back
 
 Dans components :
 1) Copier le contenu de config-prod.py dans config.py
