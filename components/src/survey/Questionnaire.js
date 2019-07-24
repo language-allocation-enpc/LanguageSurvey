@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import url from "../url";
+import { CourseBox, Button, ChangeStepButton, FinalButton, ErrorMessage, WarningMessage
+, CourseBoxList,  QuestionInstructions, QuestionFooter } from './components/utils'
 import vowGenerator from "./VowGenerator";
-import error_panel from '../images/error_panel.png';
+import InitialQuestions from"./components/initialQuestions"
+import error_panel from 'images/error_panel.png';
 import './Questionnaire.css';
 
 class Questionnaire extends Component {
@@ -29,11 +32,12 @@ class Questionnaire extends Component {
       axios.get(url+"courses/", {withCredentials:false})
       .then(
         (result) => {
-          let new_state=this.state;
-          new_state.data.courses=result.data.result
-          new_state.is_loaded=true
           this.setState({
-            new_state
+            data: {
+              courses: result.data.result,
+
+            },
+            is_loaded: true,
           });
         },
         (error) => {
@@ -45,11 +49,9 @@ class Questionnaire extends Component {
       axios.get(url+"creneaux/", {withCredentials:false})
       .then(
         (result) => {
-          let new_state=this.state;
-          new_state.data.schedules=result.data.result
-          new_state.is_loaded=true
           this.setState({
-            new_state
+            data: { schedules:result.data.result },
+            is_loaded:true
           });
         },
         (error) => {
@@ -58,9 +60,9 @@ class Questionnaire extends Component {
           });
         }
       );
-
-      //this.setState({data: dummyData})
+      console.log(this.state)
     }
+
 
     buildStepList=(answers)=>{
       let step_list=["initial_questions"];
@@ -77,7 +79,7 @@ class Questionnaire extends Component {
       return step_list
     }
 
-    buidAvailableCourses=(answers, data)=>{
+    buildAvailableCourses=(answers, data)=>{
       let available_courses=data.courses;
       if(answers.year==='1A'){
         available_courses=available_courses
@@ -148,7 +150,6 @@ class Questionnaire extends Component {
     }
 
     sendAnswers=()=>{
-      console.log(this.state.data.user_vows)
       axios.post(url+"users/students/vows/"+this.state.data.token, {vows:this.state.data.user_vows}, {withCredentials:false})
       .then(
         (result) => {
@@ -169,7 +170,7 @@ class Questionnaire extends Component {
         let data=this.state.data;
         let step=null;
         let current_step_name=this.state.step_list[this.state.step_index];
-        let available_courses=this.buidAvailableCourses(this.state.answers, data);
+        let available_courses=this.buildAvailableCourses(this.state.answers, data);
         if(current_step_name==="initial_questions"){
           step=<InitialQuestions
           getStepIndex={this.getStepIndex}
@@ -238,141 +239,6 @@ class Questionnaire extends Component {
       );
     }
   }
-
-class InitialQuestions extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {error_messages: []};
-  }
-
-  handleInputChange= (event) => {
-    const target = event.target;
-    const value = target.type === 'number' ? Math.min(Math.max(target.value, 0), 4) : (target.type==='text' ? target.value.substring(0,200) : target.value);
-    const name = target.name;
-
-    let new_answers= this.props.getAnswers();
-    new_answers[name]=value;
-    this.props.setAnswers(new_answers);
-  }
-
-  verificationFunction =()=>{
-    let answers=this.props.getAnswers();
-    let all_questions_answered_properly=(answers.year!=='')&&(answers.TOEIC!=='')&&!((answers.number_english_courses===0)&&(answers.justification_no_english===''))&&!((answers.number_english_courses===0)&&(answers.justification_no_english==='Autre')&&(answers.justification_no_english_text===''));
-    let current_error_messages=[];
-    if(!all_questions_answered_properly){
-      current_error_messages.push(<ErrorMessage text="Veuillez répondre à toutes les questions de cette page."/>);
-    }
-    this.setState({error_messages: current_error_messages});
-    //ajouter d'autres erreurs éventuelles
-    return all_questions_answered_properly;
-  }
-
-  render() {
-    let additionnal_question_about_english_courses=[];
-    if(this.props.getAnswers().number_english_courses<1)
-    {
-      additionnal_question_about_english_courses.push(
-        [
-        <label>Veuillez justifier l'absence de cours d'anglais dans vos choix.</label>,
-        <select
-          name="justification_no_english"
-          type='select'
-          className="questionnaire-form-select"
-          value={this.props.getAnswers().justification_no_english}
-          onChange={this.handleInputChange} >
-          <option value="" selected disabled hidden>Choisir</option>
-          <option value="Je suis le CIM ou j'ai validé le CIM">Je suis le CIM ou j'ai validé le CIM</option>
-          <option value="J'ai validé tous mes ECTS d'Anglais et l'obligation TOEIC">J'ai validé tous mes ECTS d'Anglais et l'obligation TOEIC</option>
-          <option value='Je dois me concentrer sur ma LV2 ce semestre'>Je dois me concentrer sur ma LV2 ce semestre</option>
-          <option value="Je suis des cours hors ENPC">Je suis des cours hors ENPC</option>
-          <option value="Je ne suis pas à l'ENPC ce semestre">Je ne suis pas à l'ENPC ce semestre</option>
-          <option value="Je suis stagiaire étranger(e)">Je suis stagiaire étranger(e)</option>
-          <option value='Autre'>Autre</option>
-        </select>,
-        <br/>
-        ]
-      );
-    }
-    if((this.props.getAnswers().number_english_courses<1)&&(this.props.getAnswers().justification_no_english==="Autre"))
-    {
-      additionnal_question_about_english_courses.push(
-      [
-      <label>Veuillez préciser cette autre raison.</label>,
-      <input
-        name="justification_no_english_text"
-        type="text"
-        className="questionnaire-form-text"
-        value={this.props.getAnswers().justification_no_english_text}
-        onChange={this.handleInputChange} />,
-        <br/>
-      ]
-      );
-    }
-    let instructions=<p>{"Bienvenue "+this.props.getUserName()+". Veuillez répondre aux questions suivantes."}</p>;
-    if(this.state.error_messages.length>0){
-      instructions=this.state.error_messages;
-    }
-    return (
-      <div className="question">
-      <QuestionInstructions text={instructions}/>
-      <div className="question-content">
-      <form className="initial-questions-form">
-        <label>
-          En quelle année êtes-vous ? </label>
-          <select
-            name="year"
-            type='select'
-            className="questionnaire-form-select"
-            value={this.props.getAnswers().year}
-            onChange={this.handleInputChange} >
-            <option value="" disabled hidden className="questionnaire-form-option">Choisir</option>
-            <option value='1A' className="questionnaire-form-option">1A</option>
-            <option value='2/3A' className="questionnaire-form-option">2/3A</option>
-            <option value='Stagiaire étranger' className="questionnaire-form-option">Stagiaire étranger</option>
-          </select>
-          <br/>
-        <label>
-          Quelle note avez-vous obtenue au TOEIC ? </label>
-          <select
-            name="TOEIC"
-            type='select'
-            className="questionnaire-form-select"
-            value={this.props.getAnswers().TOEIC}
-            onChange={this.handleInputChange} >
-            <option value="" disabled hidden className="questionnaire-form-option">Choisir</option>
-            <option value='moins de 650' className="questionnaire-form-option">moins de 650</option>
-            <option value='entre 650 et 785' className="questionnaire-form-option">entre 650 et 785</option>
-            <option value='plus de 785' className="questionnaire-form-option">plus de 785</option>
-          </select>
-          <br/>
-        <label>
-          Combien de cours d'Anglais souhaitez-vous suivre ? Attention, une justification sera demandée si vous ne souhaitez pas en suivre.
-          {this.props.getAnswers().TOEIC==='moins de 650' || this.props.getAnswers().TOEIC==='entre 650 et 785' ? <p style={{color: "red"}}>Avec votre note au TOEIC, vous êtes invité(e) à en prendre au moins deux.</p>:null}
-          </label>
-          <input
-            name="number_english_courses"
-            type="number"
-            className="questionnaire-form-number"
-            value={this.props.getAnswers().number_english_courses}
-            onChange={this.handleInputChange} />
-          <br/>
-        {additionnal_question_about_english_courses}
-        <label>
-          Combien de cours de langues différentes de l'anglais souhaitez-vous suivre ? (Souvenez vous que les cours niveau débutant comptent deux créneaux.)</label>
-          <input
-            name="number_other_courses"
-            type="number"
-            className="questionnaire-form-number"
-            value={this.props.getAnswers().number_other_courses}
-            onChange={this.handleInputChange} />
-      </form>
-      </div>
-      <QuestionFooter handleStepChange={this.props.handleStepChange} getStepList={this.props.getStepList} getStepIndex={this.props.getStepIndex} verificationFunction={this.verificationFunction}/>
-      </div>
-    );
-  }
-}
 
 class CourseRankingInstructions extends Component {
 
@@ -655,106 +521,6 @@ class CourseListFilter extends Component {
     <div className="course-list-filter">{criteria_selection}</div>
   );
 }
-}
-
-//structure générale de question
-class QuestionInstructions extends Component {
-    render() {
-      return (
-        <h2 className="question-instructions"> {this.props.text}</h2>
-      );
-    }
-  }
-
-class QuestionFooter extends Component {
-
-    render() {
-      let current_step_index=this.props.getStepIndex();
-      let step_list_length=this.props.getStepList().length;
-      let left_button=null;
-      let right_button=null;
-      if(current_step_index>0){
-        left_button=<ChangeStepButton text="Précédent" onClick={()=>this.props.handleStepChange("previous")}/>
-      }
-      let nextButtonEffect=()=>{this.props.handleStepChange("next")}
-      if(this.props.verificationFunction){//s'il y a une vérification à faire, elle est faite avant de passer à la question suivante
-        nextButtonEffect=()=>{
-          if(this.props.verificationFunction())
-          {
-            this.props.handleStepChange("next");
-          }
-        }
-      }
-      if(current_step_index<step_list_length-1){
-        right_button=<ChangeStepButton text="Suivant" onClick={nextButtonEffect }/>
-      }
-      return (
-        <div className="question-footer"> <div className="question-footer-left"> {left_button}</div><div className="question-footer-right">{right_button}</div></div>
-      );
-    }
-  }
-
-//classes utiles
-class CourseBox extends Component {
-    render() {
-      let schedules=this.props.getSchedules();
-      let current_course_schedules_list=this.props.course.creneaux.map(schedule_index => <p key={schedule_index}>{schedules[schedule_index].day+(schedules[schedule_index].day==="hors-créneaux"?"":(" "+schedules[schedule_index].begin+"-"+schedules[schedule_index].end))}</p>)
-      return (
-        <div className="course-box"> <div><h2>{this.props.course.name}</h2> <h3>{this.props.course.language}</h3>{current_course_schedules_list}</div> <div className="course-box-buttons">{this.props.buttons}</div></div>
-      );
-    }
-  }
-
-
-class Button extends Component {
-  render() {
-    return (
-      <button className="button" onClick={this.props.onClick}>{this.props.text}</button>
-    );
-  }
-}
-
-class ChangeStepButton extends Component {
-  render() {
-    return (
-      <button className="change-step-button" onClick={this.props.onClick}>{this.props.text}</button>
-    );
-  }
-}
-
-class FinalButton extends Component {
-    render() {
-      return (
-        <button className="final-button" onClick={this.props.onClick}>{this.props.text}</button>
-      );
-    }
-  }
-
-
-class ErrorMessage extends Component {
-  render() {
-    return (
-      <div className="error-message" ><img src={error_panel} alt="error_panel" style={{height: "5vh"}}/>{this.props.text}</div>
-    );
-  }
-}
-
-class WarningMessage extends Component {
-  render() {
-    return (
-      <div className="warning-message" >{this.props.text}</div>
-    );
-  }
-}
-
-class CourseBoxList extends Component {
-  render() {
-    return (
-      this.props.content.length===0 ?
-      <div className="course-box-list-empty-text" >{this.props.emptyText}</div>:
-      <div className="course-box-list" >{this.props.content}</div>
-    );
-  }
 }
 
 
