@@ -14,14 +14,14 @@ class Questionnaire extends Component {
 
 
     componentDidMount(){
-      let new_state=this.state;
-      new_state.data.user_name=window.sessionStorage.getItem("name");
-      new_state.data.user_email = window.sessionStorage.getItem("email");
-      new_state.data.vows=window.sessionStorage.getItem("vows");
-      new_state.data.token=window.sessionStorage.getItem("token");
-      new_state.is_loaded=true
       this.setState({
-        new_state
+        data: {
+          user_name: window.sessionStorage.getItem("name"),
+          user_email: window.sessionStorage.getItem("email"),
+          vows: window.sessionStorage.getItem("vows"),
+          token: window.sessionStorage.getItem("token"),
+        },
+        is_loaded: true
       });
 
 
