@@ -35,7 +35,7 @@ cd services
 
 4) Copier le contenu de config-local.py dans config.py
 
-(Premiere utilisation : lancer db_test.py pour initier la base de données de test)
+(Premiere utilisation : lancer db_test.py pour initier la base de données de test, à n'exécuter qu'en config locale)
 
 5) lancer l'API
 ```
@@ -44,6 +44,7 @@ python __init__.py
 
 ## Lancer le front
 
+Dans components :
 ```
 npm install
 ```
