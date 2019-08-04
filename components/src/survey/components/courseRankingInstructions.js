@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CourseBox, Button, ChangeStepButton, FinalButton, ErrorMessage, WarningMessage
+import { CourseBox, ChangeStepButton, FinalButton, ErrorMessage, WarningMessage
 , CourseBoxList,  QuestionInstructions, QuestionFooter } from './utils'
 
 class CourseRankingInstructions extends Component {

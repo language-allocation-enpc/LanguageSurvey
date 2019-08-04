@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { CourseBox, Button, ChangeStepButton, FinalButton, ErrorMessage, WarningMessage
+import { CourseBox, ChangeStepButton, FinalButton, ErrorMessage, WarningMessage
 , CourseBoxList,  QuestionInstructions, QuestionFooter } from './utils'
+import { Button, Select, Typography, MenuItem } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/AddCircle';
 
 class CourseList extends Component {
   constructor(props) {
@@ -69,7 +71,9 @@ class CourseList extends Component {
         for(let index=0; index<list_courses_to_display.length; index++){
             list_display.push(
             <CourseBox key={index} course={list_courses_to_display[index]} getSchedules={this.props.getSchedules} buttons={[
-                <Button text="ajouter au classement" onClick={()=>this.props.handleAddCourseToRanking(list_courses_to_display[index])} key="ajouter"/>
+                <Button onClick={()=>this.props.handleAddCourseToRanking(list_courses_to_display[index])}>
+                  <AddIcon style={{color:'green'}}/>
+                </Button>
                 ]}/>
             );
         }
@@ -92,22 +96,24 @@ class CourseListFilter extends Component {
       for(let index=0; index<this.props.criteriaWithOptions[criterion].length; index++){
         let option_name=this.props.criteriaWithOptions[criterion][index];
         if(criterion!=='schedule'){
-          list_options.push(<option value={option_name} key={option_name}>{option_name}</option>);
+          list_options.push(<MenuItem value={option_name} key={option_name}>{option_name}</MenuItem>);
         } else {
-          list_options.push(<option value={option_name} key={option_name}>{schedules[option_name].day+(schedules[option_name].day==="hors-créneaux"? "":(" "+schedules[option_name].begin+"-"+schedules[option_name].end))}</option>);
+          list_options.push(<MenuItem value={option_name} key={option_name}>{schedules[option_name].day+(schedules[option_name].day==="hors-créneaux"? "":(" "+schedules[option_name].begin+"-"+schedules[option_name].end))}</MenuItem>);
         }
 
       }
       criteria_selection.push(
         <div className="course-list-filter-option" key={criterion}>
-        <label >{criterion==="language"?"Langue : ":(criterion==="schedule"?"Horaire : ":(criterion==="level"?"Niveau : ":"erreur"))}</label>
-        <select
+        <Typography variant='h5' style={{float: 'left', paddingRight:'15px'}}>{criterion==="language"?"Langue : ":(criterion==="schedule"?"Horaire : ":(criterion==="level"?"Niveau : ":"erreur"))}</Typography>
+        <Select
             name={criterion}
             type='select'
+            style={{float:'right'}}
             value={this.props.getCurrentFilters()[criterion]}
             onChange={this.props.handleFilterChange} >
             {list_options}
-          </select>
+
+          </Select>
       </div>
 
       );

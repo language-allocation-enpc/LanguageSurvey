@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import url from "../url";
+
 import { CourseBox, Button, ChangeStepButton, FinalButton, ErrorMessage, WarningMessage
 , CourseBoxList,  QuestionInstructions, QuestionFooter } from './components/utils'
+import { Paper } from '@material-ui/core'
 import CourseRankingInstructions from './components/courseRankingInstructions'
 import CourseRankingQuestion from './components/courseRankingQuestion'
 import vowGenerator from "./VowGenerator";
@@ -229,7 +231,7 @@ class Questionnaire extends Component {
             />;
           }
       return (
-        <div className="questionnaire">{step}</div>
+        <Paper className="questionnaire">{step}</Paper>
       );
     }
   }

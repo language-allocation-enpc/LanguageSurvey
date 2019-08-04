@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { AppBar, Typography } from '@material-ui/core';
+
 import './index.css';
 import Login from './survey/LoginPage'
 import Admin from './admin/Admin'
@@ -15,6 +17,11 @@ import Questionnaire from "./survey/Questionnaire";
 
 const routing = (
   <Router>
+    <AppBar
+      color='primary'>
+      <Typography align='center' variant='h4' style={{color: 'white', padding:'0.5em'}}> Questionnaire Langues </Typography>
+      </AppBar>
+
     <Switch>
       <Route exact path="/form" component={Questionnaire} />
       <Route exact path="/login" component={Login} />

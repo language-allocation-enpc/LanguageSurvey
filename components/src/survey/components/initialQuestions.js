@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import url from "url";
-import { CourseBox, Button, ChangeStepButton, FinalButton, ErrorMessage, WarningMessage
+import { Typography, Select, MenuItem, TextField } from '@material-ui/core';
+import { CourseBox, ChangeStepButton, FinalButton, ErrorMessage, WarningMessage
 , CourseBoxList,  QuestionInstructions, QuestionFooter } from './utils'
+import { Button } from '@material-ui/core';
 import error_panel from 'images/error_panel.png';
 
 class InitialQuestions extends Component {
@@ -40,22 +42,22 @@ class InitialQuestions extends Component {
     {
       additionnal_question_about_english_courses.push(
         [
-        <label>Veuillez justifier l'absence de cours d'anglais dans vos choix.</label>,
-        <select
+        <Typography variant='subheading' >Veuillez justifier l'absence de cours d'anglais dans vos choix.</Typography>,
+        <Select
           name="justification_no_english"
           type='select'
           className="questionnaire-form-select"
           value={this.props.getAnswers().justification_no_english}
           onChange={this.handleInputChange} >
-          <option value="" selected disabled hidden>Choisir</option>
-          <option value="Je suis le CIM ou j'ai validé le CIM">Je suis le CIM ou j'ai validé le CIM</option>
-          <option value="J'ai validé tous mes ECTS d'Anglais et l'obligation TOEIC">J'ai validé tous mes ECTS d'Anglais et l'obligation TOEIC</option>
-          <option value='Je dois me concentrer sur ma LV2 ce semestre'>Je dois me concentrer sur ma LV2 ce semestre</option>
-          <option value="Je suis des cours hors ENPC">Je suis des cours hors ENPC</option>
-          <option value="Je ne suis pas à l'ENPC ce semestre">Je ne suis pas à l'ENPC ce semestre</option>
-          <option value="Je suis stagiaire étranger(e)">Je suis stagiaire étranger(e)</option>
-          <option value='Autre'>Autre</option>
-        </select>,
+          <MenuItem value="" selected disabled hidden>Choisir</MenuItem>
+          <MenuItem value="Je suis le CIM ou j'ai validé le CIM">Je suis le CIM ou j'ai validé le CIM</MenuItem>
+          <MenuItem value="J'ai validé tous mes ECTS d'Anglais et l'obligation TOEIC">J'ai validé tous mes ECTS d'Anglais et l'obligation TOEIC</MenuItem>
+          <MenuItem value='Je dois me concentrer sur ma LV2 ce semestre'>Je dois me concentrer sur ma LV2 ce semestre</MenuItem>
+          <MenuItem value="Je suis des cours hors ENPC">Je suis des cours hors ENPC</MenuItem>
+          <MenuItem value="Je ne suis pas à l'ENPC ce semestre">Je ne suis pas à l'ENPC ce semestre</MenuItem>
+          <MenuItem value="Je suis stagiaire étranger(e)">Je suis stagiaire étranger(e)</MenuItem>
+          <MenuItem value='Autre'>Autre</MenuItem>
+        </Select>,
         <br/>
         ]
       );
@@ -64,8 +66,8 @@ class InitialQuestions extends Component {
     {
       additionnal_question_about_english_courses.push(
       [
-      <label>Veuillez préciser cette autre raison.</label>,
-      <input
+      <Typography variant='subheading' >Veuillez préciser cette autre raison.</Typography>,
+      <TextField
         name="justification_no_english_text"
         type="text"
         className="questionnaire-form-text"
@@ -75,7 +77,11 @@ class InitialQuestions extends Component {
       ]
       );
     }
-    let instructions=<p>{"Bienvenue "+this.props.getUserName()+". Veuillez répondre aux questions suivantes."}</p>;
+    let instructions=<Typography variant='subheading'
+                      align='center'
+                      variant="heading">
+                      {"Bienvenue "+this.props.getUserName()+". Veuillez répondre aux questions suivantes."}
+                      </Typography>;
     if(this.state.error_messages.length>0){
       instructions=this.state.error_messages;
     }
@@ -84,39 +90,39 @@ class InitialQuestions extends Component {
       <QuestionInstructions text={instructions}/>
       <div className="question-content">
       <form className="initial-questions-form">
-        <label>
-          En quelle année êtes-vous ? </label>
-          <select
+        <Typography variant='subheading' >
+          En quelle année êtes-vous ? </Typography>
+          <Select
             name="year"
             type='select'
             className="questionnaire-form-select"
             value={this.props.getAnswers().year}
             onChange={this.handleInputChange} >
-            <option value="" disabled hidden className="questionnaire-form-option">Choisir</option>
-            <option value='1A' className="questionnaire-form-option">1A</option>
-            <option value='2/3A' className="questionnaire-form-option">2/3A</option>
-            <option value='Stagiaire étranger' className="questionnaire-form-option">Stagiaire étranger</option>
-          </select>
+            <MenuItem value="" disabled hidden className="questionnaire-form-MenuItem">Choisir</MenuItem>
+            <MenuItem value='1A' className="questionnaire-form-MenuItem">1A</MenuItem>
+            <MenuItem value='2/3A' className="questionnaire-form-MenuItem">2/3A</MenuItem>
+            <MenuItem value='Stagiaire étranger' className="questionnaire-form-MenuItem">Stagiaire étranger</MenuItem>
+          </Select>
           <br/>
-        <label>
-          Quelle note avez-vous obtenue au TOEIC ? </label>
-          <select
+        <Typography variant='subheading' >
+          Quelle note avez-vous obtenue au TOEIC ? </Typography>
+          <Select
             name="TOEIC"
             type='select'
             className="questionnaire-form-select"
             value={this.props.getAnswers().TOEIC}
             onChange={this.handleInputChange} >
-            <option value="" disabled hidden className="questionnaire-form-option">Choisir</option>
-            <option value='moins de 650' className="questionnaire-form-option">moins de 650</option>
-            <option value='entre 650 et 785' className="questionnaire-form-option">entre 650 et 785</option>
-            <option value='plus de 785' className="questionnaire-form-option">plus de 785</option>
-          </select>
+            <MenuItem value="" disabled hidden className="questionnaire-form-MenuItem">Choisir</MenuItem>
+            <MenuItem value='moins de 650' className="questionnaire-form-MenuItem">moins de 650</MenuItem>
+            <MenuItem value='entre 650 et 785' className="questionnaire-form-MenuItem">entre 650 et 785</MenuItem>
+            <MenuItem value='plus de 785' className="questionnaire-form-MenuItem">plus de 785</MenuItem>
+          </Select>
           <br/>
-        <label>
+        <Typography variant='subheading' >
           Combien de cours d'Anglais souhaitez-vous suivre ? Attention, une justification sera demandée si vous ne souhaitez pas en suivre.
           {this.props.getAnswers().TOEIC==='moins de 650' || this.props.getAnswers().TOEIC==='entre 650 et 785' ? <p style={{color: "red"}}>Avec votre note au TOEIC, vous êtes invité(e) à en prendre au moins deux.</p>:null}
-          </label>
-          <input
+          </Typography>
+          <TextField
             name="number_english_courses"
             type="number"
             className="questionnaire-form-number"
@@ -124,9 +130,9 @@ class InitialQuestions extends Component {
             onChange={this.handleInputChange} />
           <br/>
         {additionnal_question_about_english_courses}
-        <label>
-          Combien de cours de langues différentes de l'anglais souhaitez-vous suivre ? (Souvenez vous que les cours niveau débutant comptent deux créneaux.)</label>
-          <input
+        <Typography variant='subheading' >
+          Combien de cours de langues différentes de l'anglais souhaitez-vous suivre ? (Souvenez vous que les cours niveau débutant comptent deux créneaux.)</Typography>
+          <TextField
             name="number_other_courses"
             type="number"
             className="questionnaire-form-number"

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import error_panel from 'images/error_panel.png';
-
+import { Button, Card } from '@material-ui/core';
 
 class QuestionInstructions extends Component {
     render() {
@@ -44,24 +44,18 @@ class CourseBox extends Component {
       let schedules=this.props.getSchedules();
       let current_course_schedules_list=this.props.course.creneaux.map(schedule_index => <p key={schedule_index}>{schedules[schedule_index].day+(schedules[schedule_index].day==="hors-créneaux"?"":(" "+schedules[schedule_index].begin+"-"+schedules[schedule_index].end))}</p>)
       return (
-        <div className="course-box"> <div><h2>{this.props.course.name}</h2> <h3>{this.props.course.language}</h3>{current_course_schedules_list}</div> <div className="course-box-buttons">{this.props.buttons}</div></div>
+        <Card className="course-box"> <div><h2>{this.props.course.name}</h2> <h3>{this.props.course.language}</h3>{current_course_schedules_list}</div> <div className="course-box-buttons">{this.props.buttons}</div></Card>
       );
     }
   }
 
 
-class Button extends Component {
-  render() {
-    return (
-      <button className="button" onClick={this.props.onClick}>{this.props.text}</button>
-    );
-  }
-}
+
 
 class ChangeStepButton extends Component {
   render() {
     return (
-      <button className="change-step-button" onClick={this.props.onClick}>{this.props.text}</button>
+      <Button className="change-step-button" onClick={this.props.onClick}>{this.props.text}</Button>
     );
   }
 }
@@ -69,7 +63,7 @@ class ChangeStepButton extends Component {
 class FinalButton extends Component {
     render() {
       return (
-        <button className="final-button" onClick={this.props.onClick}>{this.props.text}</button>
+        <Button className="final-button" onClick={this.props.onClick}>{this.props.text}</Button>
       );
     }
   }
@@ -102,7 +96,6 @@ class CourseBoxList extends Component {
 }
 
 export {CourseBox,
-  Button,
   ChangeStepButton,
   FinalButton,
   ErrorMessage,
