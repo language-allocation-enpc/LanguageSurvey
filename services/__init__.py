@@ -85,7 +85,7 @@ def login():
     response = users.find_one({'type': 'admin', 'email' : email})
 
     if response:
-        if bcrypt.check_password_hash(response['password'], password):
+        if bcrypt.check_password_hash(password,response['password']):
             access_token = create_access_token(identity = {
 			    'name': response['first_name'],
 				'email': response['email']}
