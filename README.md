@@ -44,6 +44,7 @@ python __init__.py
 
 ## Lancer le front
 
+Dans components :
 ```
 npm install
 ```
