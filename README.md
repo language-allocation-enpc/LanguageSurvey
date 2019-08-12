@@ -1,87 +1,104 @@
-# LanguageSurvey
-## Le site de la DLC dédié au questionnaire langues
+# LanguageSurvey: Le site du DLC dédié au questionnaire langues
 
-# Compiler en local
-## Lancer le back
+## Index
 
-1) Installer MongoDB
+1.  [Dependencies](#dependencies)
+2.  [Installation](#installation)
+3.  [Local compile](#local-compile)
+4.  [Deploy in production](#deploy-in-production)
 
+## Dependencies
+
+- [anaconda](https://www.anaconda.com/distribution/)
+
+## Installation
+
+Install a conda environment:
+
+```bash
+conda create -n languagesurvey anaconda python=3.7.2
+conda activate languagesurvey
+pip install -r ./requirements.txt
 ```
+
+_N.B.:_ The `requirements.txt` file has been generated with the following command lines:
+
+```bash
+conda create -n languagesurvey anaconda python=3.7.2
+conda activate languagesurvey
+pip install black flake8 flask flask_cors flask_login flask_pymongo names numpy pymongo pymprog
+pip freeze > requirements.txt
+```
+
+## Local compile
+
+### Launch Back
+
+#### Install MongoDB
+
+```bash
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
-```
-
-```
 echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-```
-```
 sudo apt-get update
-```
-```
 sudo apt-get install -y mongodb-org
 ```
 
-2) Installer pymongo
-```
+#### Install pymongo
+
+```bash
 pip install pymongo
 ```
 
-3) Lancer mongoDB puis se placer dans services
+#### Launch MongoDB and API
+
+Before the first use: Launch `db_test.py` to initialize test database (to be launched only with local config):
+
+```bash
+python db_test.py
 ```
-sudo service mongod start
-```
-```
+
+Launch MongoDB and API:
+
+```bash
+sudo service mongodb start
 cd services
-```
-
-4) Copier le contenu de config-local.py dans config.py
-
-(Premiere utilisation : lancer db_test.py pour initier la base de données de test, à n'exécuter qu'en config locale)
-
-5) lancer l'API
-```
 python __init__.py
 ```
 
-## Lancer le front
+### Launch Front
 
-Dans components :
-```
+```bash
+cd components
 npm install
-```
-```
 npm start
 ```
 
+## Deploy in production
 
-# Déployer en production
-## Front
+### Front
 
 Dans components :
-1) Mettre dans components/url.js la variable prod à true
-2) git push
-3) Se connecter a heroku :
-```
+
+1. Mettre dans components/url.js la variable prod à true
+2. git push
+3. Se connecter a heroku :
+
+```bash
 npm install -g heroku
-```
-```
 heroku git:remote -a language-survey-app
-```
-```
 git subtree push --prefix components heroku master
 ```
 
-## Back
+### Back
 
 Dans components :
-1) Copier le contenu de config-prod.py dans config.py
-2) git push
-3) Se connecter a heroku :
-```
+
+1. Copier le contenu de config-prod.py dans config.py
+2. git push
+3. Se connecter a heroku :
+
+```bash
 npm install -g heroku
-```
-```
 heroku git:remote -a language-survey-api
-```
-```
 git subtree push --prefix services heroku master
 ```
