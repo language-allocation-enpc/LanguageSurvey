@@ -16,7 +16,7 @@
 Install a conda environment:
 
 ```bash
-conda create -n languagesurvey anaconda python=3.7.2
+conda create -n languagesurvey python=3.7.2
 conda activate languagesurvey
 pip install -r ./requirements.txt
 ```
@@ -26,7 +26,7 @@ _N.B.:_ The `requirements.txt` file has been generated with the following comman
 ```bash
 conda create -n languagesurvey anaconda python=3.7.2
 conda activate languagesurvey
-pip install black flake8 flask flask_cors flask_login flask_pymongo names numpy pymongo pymprog
+pip install black flake8 flask flask_bcrypt flask_cors flask_jwt_extended flask_mail flask_login flask_pymongo names numpy pymongo pymprog
 pip freeze > requirements.txt
 ```
 
@@ -40,13 +40,7 @@ pip freeze > requirements.txt
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
 echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
 sudo apt-get update
-sudo apt-get install -y mongodb-org
-```
-
-#### Install pymongo
-
-```bash
-pip install pymongo
+sudo aptitude install -y mongodb-org
 ```
 
 #### Launch MongoDB and API
@@ -54,15 +48,14 @@ pip install pymongo
 Before the first use: Launch `db_test.py` to initialize test database (to be launched only with local config):
 
 ```bash
-python db_test.py
+python services/db_test.py
 ```
 
 Launch MongoDB and API:
 
 ```bash
 sudo service mongodb start
-cd services
-python __init__.py
+python services/__init__.py
 ```
 
 ### Launch Front

@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
-
+import React, { Component } from "react";
 
 class ErrorPage extends Component {
-  constructor(props) {
-    super(props);
-  }
+  //constructor(props) {
+  //  super(props);
+  //}
   render() {
     return (
       <div className="404">
-      <h1>Erreur 404</h1><br/>Que fais-tu ici ?</div>
+        <h1>Erreur 404</h1>
+        <br />
+        Que fais-tu ici ?
+      </div>
     );
   }
 }

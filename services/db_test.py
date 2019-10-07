@@ -3,8 +3,8 @@ import string
 
 from pymongo import MongoClient
 
+from config import MONGODB_DB_NAME, MONGODB_PW, MONGODB_USER, PROD
 from data_structs import course, vow
-from services.config import MONGODB_DB_NAME, MONGODB_PW, MONGODB_USER, PROD
 
 if PROD:
     client = MongoClient("mongodb://" + MONGODB_USER + ":" + MONGODB_PW + "@ds345937.mlab.com:45937/" + MONGODB_DB_NAME)
