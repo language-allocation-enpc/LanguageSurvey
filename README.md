@@ -87,7 +87,7 @@ npm install -g heroku
 heroku create -a language-survey-api
 heroku git:remote -a language-survey-api
 cd ..
-git subtree push --prefix components heroku master
+git subtree push --prefix services heroku master
 ```
 
 ## Deploy in production
@@ -115,5 +115,120 @@ git subtree push --prefix components heroku master
 cd services
 heroku git:remote -a language-survey-api
 cd ..
-git subtree push --prefix components heroku master
+git subtree push --prefix services heroku master
 ```
+
+## Access
+
+### APP URLs
+
+Main URL: `https://language-survey-app.herokuapp.com/`
+All URLs in file `components/src/index.js`:
+
+- `/form`:
+- `/login`:
+- `/admin`:
+- `/admin/login`:
+- `/admin/manage-courses`:
+- `/admin/get-affect`:
+- `/admin/manage-students`:
+- `/admin/change-students`:
+
+### API URLs
+
+Main URL: `https://language-survey-api.herokuapp.com/`
+
+## Tree structure of the code
+
+### Folders tree
+
+```bash
+tree -d -I "node_modules" > tree.txt
+```
+
+```
+.
+├── components                  #
+│   ├── public                  #
+│   └── src                     #
+│       ├── admin               #
+│       │   └── components      #
+│       ├── images              #
+│       └── survey              #
+│           └── components      #
+└── services                    #
+```
+
+### Detailed tree
+
+```bash
+tree -I "node_modules" > tree.txt
+```
+
+```
+.
+├── components
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── public
+│   │   ├── enpc_favicon.ico
+│   │   ├── index.html
+│   │   └── manifest.json
+│   └── src
+│       ├── 404.js
+│       ├── admin
+│       │   ├── Admin.css
+│       │   ├── Admin.js
+│       │   ├── AdminLogin.js
+│       │   └── components
+│       │       ├── changeStudent.js
+│       │       ├── CourseEditing.css
+│       │       ├── CourseEditing.js
+│       │       ├── getAffect.js
+│       │       ├── resultPage.js
+│       │       └── studentManagement.js
+│       ├── images
+│       │   ├── background_image.jpg
+│       │   ├── edit_button.png
+│       │   ├── error_panel.png
+│       │   ├── header_banner.png
+│       │   ├── plus_button.png
+│       │   └── suppr_button.png
+│       ├── index.css
+│       ├── index.js
+│       ├── survey
+│       │   ├── components
+│       │   │   ├── courseRankingInstructions.js
+│       │   │   ├── courseRankingQuestion.js
+│       │   │   ├── courseRankingTools.js
+│       │   │   ├── initialQuestions.js
+│       │   │   └── utils.js
+│       │   ├── LoginPage.css
+│       │   ├── LoginPage.js
+│       │   ├── Questionnaire.css
+│       │   ├── Questionnaire.js
+│       │   └── VowGenerator.js
+│       └── url.js
+├── README.md
+└── services
+    ├── config-local.py
+    ├── config-prod.py
+    ├── config.py
+    ├── data_structs.py
+    ├── db_test.py
+    ├── __init__.py
+    ├── Procfile
+    ├── random_data.py
+    ├── requirements.txt
+    ├── runtime.txt
+    └── solver.py
+```
+
+## TODO list:
+
+To be detailed as much as possible
+
+1. Check workflow of front
+2. Check workflow of back
+3. Extraction of results in Excel files
+4. ...
