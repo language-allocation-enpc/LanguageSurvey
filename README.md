@@ -16,18 +16,18 @@
 Install a conda environment:
 
 ```bash
-conda create -n languagesurvey python=3.7.2
+conda create -n languagesurvey python=3.7.4
 conda activate languagesurvey
-pip install -r ./requirements.txt
+pip install -r services/requirements.txt
 ```
 
 _N.B.:_ The `requirements.txt` file has been generated with the following command lines:
 
 ```bash
-conda create -n languagesurvey python=3.7.2
+conda create -n languagesurvey python=3.7.4
 conda activate languagesurvey
 pip install black flake8 flask flask_bcrypt flask_cors flask_jwt_extended flask_mail flask_login flask_pymongo names numpy pymongo pymprog
-pip freeze > requirements.txt
+pip freeze > services/requirements.txt
 ```
 
 ## Local compile
@@ -66,32 +66,54 @@ npm install
 npm start
 ```
 
-## Deploy in production
+## Create applications
 
-### Front
-
-Dans components :
-
-1. Mettre dans components/url.js la variable prod à true
-2. git push
-3. Se connecter a heroku :
+### Create APP (Front)
 
 ```bash
+cd components
 npm install -g heroku
+heroku create -a language-survey-app
 heroku git:remote -a language-survey-app
+cd ..
 git subtree push --prefix components heroku master
 ```
 
-### Back
-
-Dans components :
-
-1. Copier le contenu de config-prod.py dans config.py
-2. git push
-3. Se connecter a heroku :
+### Create API (Back)
 
 ```bash
+cd services
 npm install -g heroku
+heroku create -a language-survey-api
 heroku git:remote -a language-survey-api
-git subtree push --prefix services heroku master
+cd ..
+git subtree push --prefix components heroku master
+```
+
+## Deploy in production
+
+### Deploy APP (Front)
+
+1. Set `const PROD = true` in `components/src/url.js`
+2. Add, commit and push changes to Git repository
+3. Deploy the app:
+
+```bash
+cd components
+heroku git:remote -a language-survey-app
+cd ..
+git subtree push --prefix components heroku master
+```
+
+### Deploy API (Back)
+
+1. Put `config-prod.py` into `config.py`
+2. Add, commit and push changes to Git repository
+3. Deploy the api:
+
+```bash
+cd services
+heroku git:remote -a language-survey-api
+cd ..
+git subtree push --prefix components heroku master
 ```

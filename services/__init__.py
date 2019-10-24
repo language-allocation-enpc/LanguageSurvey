@@ -2,15 +2,16 @@ import random
 import string
 
 from flask import Flask, jsonify, request
+from flask_bcrypt import Bcrypt
 from flask_cors import CORS, cross_origin
+from flask_jwt_extended import (JWTManager, create_access_token, get_raw_jwt,
+                                jwt_required)
+from flask_login import LoginManager
+from flask_mail import Mail, Message
 from flask_pymongo import PyMongo
 
 import data_structs
 from config import MONGODB_DB_NAME, MONGODB_PW, MONGODB_USER, PROD
-from flask_bcrypt import Bcrypt
-from flask_jwt_extended import JWTManager, create_access_token, get_raw_jwt, jwt_required
-from flask_login import LoginManager
-from flask_mail import Mail, Message
 from solver import solve
 
 app = Flask(__name__)
