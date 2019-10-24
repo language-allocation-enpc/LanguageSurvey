@@ -24,7 +24,7 @@ pip install -r ./requirements.txt
 _N.B.:_ The `requirements.txt` file has been generated with the following command lines:
 
 ```bash
-conda create -n languagesurvey anaconda python=3.7.2
+conda create -n languagesurvey python=3.7.2
 conda activate languagesurvey
 pip install black flake8 flask flask_bcrypt flask_cors flask_jwt_extended flask_mail flask_login flask_pymongo names numpy pymongo pymprog
 pip freeze > requirements.txt

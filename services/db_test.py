@@ -7,7 +7,10 @@ from config import MONGODB_DB_NAME, MONGODB_PW, MONGODB_USER, PROD
 from data_structs import course, vow
 
 if PROD:
-    client = MongoClient("mongodb://" + MONGODB_USER + ":" + MONGODB_PW + "@ds345937.mlab.com:45937/" + MONGODB_DB_NAME)
+    client = MongoClient(
+        "mongodb://" + MONGODB_USER + ":" + MONGODB_PW + "@ds345937.mlab.com:45937/" + MONGODB_DB_NAME,
+        retryWrites=False,
+    )
 else:
     client = MongoClient("mongodb://localhost:27017/")
 app_db = client[MONGODB_DB_NAME]
