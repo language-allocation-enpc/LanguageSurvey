@@ -24,7 +24,7 @@ numpy==1.17.3
 pycodestyle==2.5.0
 pycparser==2.19
 pyflakes==2.1.1
-PyJWT==1.7.1
+PyJWT==2.4.0
 pymongo==3.9.0
 pymprog==1.1.2
 six==1.12.0
